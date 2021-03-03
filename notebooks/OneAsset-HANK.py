@@ -5,8 +5,8 @@
 #     text_representation:
 #       extension: .py
 #       format_name: percent
-#       format_version: '1.2'
-#       jupytext_version: 1.2.1
+#       format_version: '1.3'
+#       jupytext_version: 1.10.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -19,7 +19,7 @@
 #
 # This notebook solves a New Keynesian model in which there is only a single liquid asset.  This is the second model described in <cite data-cite="6202365/ECL3ZAR7"></cite>.  For a detailed description of their solution method, see the companion two-asset HANK model notebook.
 
-# %% {"code_folding": [0]}
+# %% code_folding=[0]
 # Setup
 from __future__ import print_function
 
@@ -37,15 +37,6 @@ def in_ipynb():
     except NameError:
         return False
 
-# Determine whether to make the figures inline (for spyder or jupyter)
-# vs whatever is the automatic setting that will apply if run from the terminal
-if in_ipynb():
-    # %matplotlib inline generates a syntax error when run from the shell
-    # so do this instead
-    get_ipython().run_line_magic('matplotlib', 'inline') 
-else:
-    get_ipython().run_line_magic('matplotlib', 'auto') 
-    
 # The tools for navigating the filesystem
 import sys
 import os
@@ -59,7 +50,7 @@ code_dir = os.path.join(my_file_path, "../Assets/One/")
 sys.path.insert(0, code_dir)
 sys.path.insert(0, my_file_path)
 
-# %% {"code_folding": []}
+# %% code_folding=[]
 # Ignore system warnings while running the notebook
 import warnings
 warnings.filterwarnings('ignore')
@@ -75,7 +66,7 @@ EX2SS=pickle.load(open("EX2SS.p", "rb"))
 # %%
 from FluctuationsOneAssetIOUsBond import FluctuationsOneAssetIOUs, SGU_solver, plot_IRF
 
-# %% {"code_folding": []}
+# %% code_folding=[]
 # Uncertainty Shock
     
 EX2SS['par']['aggrshock'] = 'Uncertainty'
@@ -91,7 +82,7 @@ SGUresult=SGU_solver(SR['Xss'],SR['Yss'],SR['Gamma_state'],SR['Gamma_control'],S
 plot_IRF(SR['mpar'],SR['par'],SGUresult['gx'],SGUresult['hx'],SR['joint_distr'],
              SR['Gamma_state'],SR['grid'],SR['targets'],SR['os'],SR['oc'],SR['Output'])
 
-# %% {"code_folding": [0]}
+# %% code_folding=[0]
 # Monetary Policy Shock
 
 EX2SS['par']['aggrshock'] = 'MP'
@@ -107,7 +98,7 @@ SGUresult=SGU_solver(SR['Xss'],SR['Yss'],SR['Gamma_state'],SR['Gamma_control'],S
 plot_IRF(SR['mpar'],SR['par'],SGUresult['gx'],SGUresult['hx'],SR['joint_distr'],
              SR['Gamma_state'],SR['grid'],SR['targets'],SR['os'],SR['oc'],SR['Output'])
 
-# %% {"code_folding": [0]}
+# %% code_folding=[0]
 # Productivity Shock
 
 EX2SS['par']['aggrshock'] = 'TFP'

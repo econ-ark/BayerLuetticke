@@ -101,14 +101,14 @@ class SteadyStateOneAssetIOU:
             print(count)
             # Solve policies and Joint distribution
             print('Solving household problem by EGM')
-            start_time = time.clock()
+            start_time = time.time()
            
             resultPolicySS = self.PoliciesSS(c_guess, grid, inc, RBRB, P_H, self.mpar, par)
             c_guess = resultPolicySS['c_new'].copy()
             m_star = resultPolicySS['m_star'].copy()
             distPOL = resultPolicySS['distPOL']
            
-            end_time = time.clock()
+            end_time = time.time()
             print('Elapsed time is ',  (end_time-start_time), ' seconds.')
            
             print(distPOL)

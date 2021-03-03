@@ -1110,7 +1110,7 @@ class SteadyStateTwoAsset:
                 
         # solve policies and joint distr
         print('Solving Household problem by EGM')
-        start_time = time.clock()
+        start_time = time.time()
                             
         pSS_ek_result = self.PoliciesSS(c_a_guess,c_n_guess,psi_guess, grid, inc, RR,RBRB,P_H,mpar,par,meshes)
         c_n_guess = pSS_ek_result['c_n_guess'].copy()
@@ -1124,16 +1124,16 @@ class SteadyStateTwoAsset:
         
         print(distPOL)
         
-        end_time = time.clock()
+        end_time = time.time()
         print('Elapsed time is ',  (end_time-start_time), ' seconds.')
         
         print('Calc Joint Distr')
-        start_time = time.clock()
+        start_time = time.time()
         jd_ek_result = self.JDiteration(joint_distr, m_n_star, m_a_star, cap_a_star, P_H, par, mpar, grid)
         joint_distr = np.reshape(jd_ek_result['joint_distr'].copy(),(mpar['nm'],mpar['nk'],mpar['nh']),order='F')
         print(jd_ek_result['distJD'])
         
-        end_time = time.clock()
+        end_time = time.time()
         print('Elapsed time is ',  (end_time-start_time), ' seconds.')
         
         AggregateCapitalDemand = np.sum(grid['k']*np.sum(np.sum(joint_distr.copy(),axis = 0),axis=1))
@@ -1154,12 +1154,12 @@ if __name__ == '__main__':
     
     EX3param = copy(Params.parm_TwoAsset)
     
-    start_time0 = time.clock()        
+    start_time0 = time.time()        
     EX3 = SteadyStateTwoAsset(**EX3param)
     
     EX3SS = EX3.SolveSteadyState()
     
-    end_time0 = time.clock()
+    end_time0 = time.time()
     print('Elapsed time is ',  (end_time0-start_time0), ' seconds.')
     
     pickle.dump(EX3SS, open("EX3SS_20.p", "wb"))
