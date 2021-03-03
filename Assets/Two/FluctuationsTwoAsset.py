@@ -1218,9 +1218,9 @@ def SGU_solver(Xss,Yss,Gamma_state,indexMUdct,indexVKdct,par,mpar,grid,targets,C
 #                                          par,mpar,grid,targets,Copula,P_H,aggrshock)
 
 
-#     start_time = time.clock() 
+#     start_time = time.time() 
 #     result_F = F(State,State_m,Contr.copy(),Contr_m.copy())
-#     end_time   = time.clock()
+#     end_time   = time.time()
 #     print ('Elapsed time is ', (end_time-start_time), ' seconds.')
 #     Fb=result_F['Difference'].copy()
 
@@ -1243,7 +1243,7 @@ def SGU_solver(Xss,Yss,Gamma_state,indexMUdct,indexVKdct,par,mpar,grid,targets,C
 #     par['scaleval1'] = 1e-5
 #     par['scaleval2'] = 1e-5
 
-#     start_time = time.clock()
+#     start_time = time.time()
 #     print ('Computing Jacobian F1=DF/DXprime F3 =DF/DX')
 #     print ('Total number of parallel blocks: ', str(blocks), '.')
 
@@ -1291,7 +1291,7 @@ def SGU_solver(Xss,Yss,Gamma_state,indexMUdct,indexVKdct,par,mpar,grid,targets,C
 #         F1[:,range_]=FF1[i]
 #         F3[:,range_]=FF3[i]
 
-#     end_time   = time.clock()
+#     end_time   = time.time()
 #     print ('Elapsed time is ', (end_time-start_time), ' seconds.')
 
 #     # jacobian wrt Y'
@@ -1302,7 +1302,7 @@ def SGU_solver(Xss,Yss,Gamma_state,indexMUdct,indexVKdct,par,mpar,grid,targets,C
 
 #     FF=[]
 
-#     start_time = time.clock()
+#     start_time = time.time()
 
 #     for bl in range(0,blocks):
 #         range_= range(bl*packagesize,min(packagesize*(bl+1),mpar['numcontrols']))
@@ -1323,7 +1323,7 @@ def SGU_solver(Xss,Yss,Gamma_state,indexMUdct,indexVKdct,par,mpar,grid,targets,C
 #         range_=range(i*packagesize, min(packagesize*(i+1),mpar['numcontrols']))
 #         F2[:,range_]=FF[i]
 
-#     end_time = time.clock()
+#     end_time = time.time()
 #     print ('Elapsed time is ', (end_time-start_time), ' seconds.')
 
 

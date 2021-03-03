@@ -1,12 +1,13 @@
 # ---
 # jupyter:
 #   jupytext:
+#     cell_metadata_json: true
 #     formats: ipynb,py:percent
 #     text_representation:
 #       extension: .py
 #       format_name: percent
-#       format_version: '1.2'
-#       jupytext_version: 1.2.1
+#       format_version: '1.3'
+#       jupytext_version: 1.10.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -141,7 +142,7 @@
 #      * That is, given a histogram describing the distribution in period $t$, $d \mu_{t}$, next period's histogram is determined by the transition matrix
 #    * Prices, distribution, and policies lead to market clearing
 
-# %% {"code_folding": [0]}
+# %% {"code_folding": []}
 # Setup stuff 
 from __future__ import print_function
 
@@ -159,14 +160,6 @@ def in_ipynb():
     except NameError:
         return False
 
-# Determine whether to make the figures inline (for spyder or jupyter)
-# vs whatever is the automatic setting that will apply if run from the terminal
-if in_ipynb():
-    # %matplotlib inline generates a syntax error when run from the shell
-    # so do this instead
-    get_ipython().run_line_magic('matplotlib', 'inline') 
-else:
-    get_ipython().run_line_magic('matplotlib', 'auto') 
     
 # The tools for navigating the filesystem
 import sys
@@ -181,7 +174,7 @@ code_dir = os.path.join(my_file_path, "../Assets/Two")
 sys.path.insert(0, code_dir)
 sys.path.insert(0, my_file_path)
 
-# %% {"code_folding": [0]}
+# %% {"code_folding": []}
 ## Load precomputed Stationary Equilibrium (StE) object EX3SS_20
 
 import pickle
