@@ -789,7 +789,7 @@ def EGM_policyupdate(EVm,PIminus,RBminus,inc,meshes,grid,par,mpar):
 if __name__ == '__main__':
     
     from copy import copy
-    from time import clock
+    import time
     import pickle
     import scipy.io
     
