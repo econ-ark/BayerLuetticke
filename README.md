@@ -26,13 +26,5 @@ This file:
 
 2) ConsIndShockModel_extension.py extends ConsIndShockModel to calculate and store a histogram of the distribution of agents.
 
-The BayerLuettike code can also be run directly to recover impulse response functions to aggregate shocks.
-
-The direct (non-notebook) code for which is found in the folder BayerLuetticke_code/TwoAssetCode
-
-To run this code run the two files in order:
-
-1) SteadyStateTwoAsset.py - solves the steady state
-2) FluctuationsTwoAsset.py - solves the aggregate shocks and plots impulse response functions
-
+   * This is a starting point for an alternative method for creating the steady state required as an input for the BL method.  (It's only a starting point because the remaining steps to format the output in the manner required by the BL code have not been taken).
 

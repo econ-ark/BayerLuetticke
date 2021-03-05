@@ -313,7 +313,7 @@ if __name__ == '__main__':
     if simulate:
         BayerLuettickeExampleAgent.T_sim = 1000
         BayerLuettickeExampleAgent.track_vars = ['bNow','cNow','mNow','incStateNow']
-        BayerLuettickeExampleAgent.initializeSim()
+        BayerLuettickeExampleAgent.initialize_sim()
         BayerLuettickeExampleAgent.simulate()
         
         
