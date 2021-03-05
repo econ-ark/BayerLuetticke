@@ -40,7 +40,7 @@ class LuettickeAgent(AgentType):
         self.poststate_vars = deepcopy(self.poststate_vars_)
         self.track_vars     = []
         self.seed               = seed
-        self.resetRNG()
+        self.reset_rng()
         self.time_flow = False
         self.time_vary      = []
         self.time_inv       = []
@@ -299,7 +299,7 @@ if __name__ == '__main__':
     if simulate:
         LuettickeExampleAgent.T_sim = 1000
         LuettickeExampleAgent.track_vars = ['bNow','cNow','mNow','incStateNow']
-        LuettickeExampleAgent.initializeSim()
+        LuettickeExampleAgent.initialize_sim()
         LuettickeExampleAgent.simulate()
         
         

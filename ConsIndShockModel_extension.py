@@ -161,7 +161,7 @@ class IndShockConsumerType_extend(IndShockConsumerType):
         
 if __name__ == '__main__':
     import HARK.ConsumptionSaving.ConsumerParameters as Params
-    from HARK.utilities import plotFuncsDer, plotFuncs
+    from HARK.utilities import plot_funcs_der, plot_funcs
     import time
     mystr = lambda number : "{:.4f}".format(number)
     
