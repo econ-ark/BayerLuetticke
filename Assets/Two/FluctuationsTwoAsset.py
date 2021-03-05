@@ -1405,7 +1405,7 @@ def SGU_solver(Xss,Yss,Gamma_state,indexMUdct,indexVKdct,par,mpar,grid,targets,C
 if __name__ == '__main__':
     __spec__ = None
 #    __spec__ = __spec__
-    from time import clock
+    import time
     import pickle
     
     EX3SS=pickle.load(open("EX3SS_20.p", "rb"))

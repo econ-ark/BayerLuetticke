@@ -15,18 +15,18 @@
 # ---
 
 # %% [markdown]
-# # Two Asset HANK Model [<cite data-cite="6202365/ECL3ZAR7"></cite>](https://cepr.org/active/publications/discussion_papers/dp.php?dpno=13071) 
+# # Two Asset HANK Model [<cite data-cite="6202365/ECL3ZAR7"></cite>](https://cepr.org/active/publications/discussion_papers/dp.php?dpno=13071)
 #
 # [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/econ-ark/HARK/BayerLuetticke/notebooks?filepath=HARK%2FBayerLuetticke%2FTwoAsset.ipynb)
 #
 # - Adapted from original slides by Christian Bayer and Ralph Luetticke (Henceforth, 'BL')
-# - Jupyter notebook originally by Seungcheol Lee 
+# - Jupyter notebook originally by Seungcheol Lee
 # - Further edits by Chris Carroll, Tao Wang, Edmund Crawley
 
 # %% [markdown]
 # ### Overview
 #
-# BL propose a method for solving Heterogeneous Agent DSGE models that uses fast tools originally employed for image and video compression to speed up a variant of the solution methods proposed by Michael Reiter. <cite data-cite="undefined"></cite>  
+# BL propose a method for solving Heterogeneous Agent DSGE models that uses fast tools originally employed for image and video compression to speed up a variant of the solution methods proposed by Michael Reiter. <cite data-cite="undefined"></cite>
 #
 # The Bayer-Luetticke method has the following broad features:
 #    * The model is formulated and solved in discrete time (in contrast with some other recent approaches <cite data-cite="6202365/WN76AW6Q"></cite>)
@@ -42,7 +42,7 @@
 #       * The method of capturing dynamic deviations from a reference frame is akin to video compression
 
 # %% [markdown]
-# ### Setup 
+# ### Setup
 #
 # #### The Recursive Dynamic Planning Problem
 #
@@ -52,13 +52,13 @@
 #    * $S_t$ measures the (exogenous) aggregate state (e.g., levels of productivity and unemployment)
 #    * $s_{it}$ records agent $i$'s idiosyncratic state (exogenous and endogenous, e.g. employment or assets)
 #    * $\mu_t$ is the distribution over $s$ at date $t$ (e.g., the wealth distribution)
-#    * $P_{t}$ is the pricing kernel 
+#    * $P_{t}$ is the pricing kernel
 #       * It captures the info about the aggregate state that the consumer needs to know in order to behave optimally
-#       * e.g., KS showed that for their problem, a good _approximation_ to $P_{t}$ could be constructed 
+#       * e.g., KS showed that for their problem, a good _approximation_ to $P_{t}$ could be constructed
 #         using only the economy's 'good/bad' state and the aggregate capital stock $K_{t}$
 #    * $\Gamma$ defines the budget set
 #       * This delimits the set of feasible choices $x$ that the agent can make
-#       
+#
 # The Bellman equation is:
 #
 # \begin{equation}
@@ -69,10 +69,10 @@
 #      \begin{equation}
 #         u^{\prime}\left(s_{it},x(s_{it},S_t,\mu_t)\right) = \beta \mathbb{E}_{t} R(S_t,S_{t+1},\mu_t,\mu_{t+1}) u^{\prime}\left(s_{it+1},x(s_{it+1},S_{t+1},\mu_{t+1})\right)
 #      \end{equation}
-#      
+#
 
 # %% [markdown]
-# #### Solving for the StE 
+# #### Solving for the StE
 #
 # The steady-state equilibrium is the one that will come about if there are no aggregate risks (and consumers know this)
 #
@@ -93,14 +93,13 @@
 #         \bar{v} = \bar{u} + \beta \Pi_{\bar{\policy}}\bar{v}
 #       \end{equation}
 #      holds for the optimal policy
-#    * For the distribution $\mu$ of consumers across states, which (by the definition of steady state) is constant:   
+#    * For the distribution $\mu$ of consumers across states, which (by the definition of steady state) is constant:
 # \begin{eqnarray}
 #         \bar{\mu} & = & \bar{\mu} \Pi_{\bar{\policy}} \\
-#         d\bar{\mu} & = & d\bar{\mu} \Pi_{\bar{\policy}}
-# \end{eqnarray}
-# <!--     where we differentiate in the second line because we will be representing the distribution as a histogram, which counts the _extra_ population obtained by moving up --> <!-- Is this right?  $\mu$ vs $d \mu$ is a bit confusing.  The d is wrt the state, not time, right? -->
-#      
-# We will define an approximate equilibrium in which:    
+#              d\bar{\mu} & = & d\bar{\mu} \Pi_{\bar{\policy}}
+# \end{eqnarray}<!--     where we differentiate in the second line because we will be representing the distribution as a histogram, which counts the _extra_ population obtained by moving up --> <!-- Is this right?  $\mu$ vs $d \mu$ is a bit confusing.  The d is wrt the state, not time, right? -->
+#
+# We will define an approximate equilibrium in which:
 #    * $\bar{\policy}$ is the vector that defines a linear interpolating policy function $\policy$ at the state nodes
 #        * given $P$ and $v$
 #        * $v$ is a linear interpolation of $\bar{v}$
@@ -109,7 +108,7 @@
 #    * Markets clear ($\exists$ joint requirement on $\bar{\policy}$, $\mu$, and $P$; denoted as $\Phi(\bar{\policy}, \mu, P) = 0$)  <!-- Question: Why is this not $\bar{\mu}$ -->
 #
 # This can be solved by:
-#    1. Given $P$, 
+#    1. Given $P$,
 #        1. Finding $d\bar{\mu}$ as the unit-eigenvalue of $\Pi_{\bar{\policy}}$
 #        2. Using standard solution techniques to solve the micro decision problem
 #           * Given, e.g., that the aggregate wage and interest rate are constant
@@ -127,7 +126,7 @@
 #    * The distribution does not influence decisions directly
 
 # %% [markdown]
-# #### Sequential Equilibrium (Reiter, 2002) 
+# #### Sequential Equilibrium (Reiter, 2002)
 # A 'sequential equilibrium with recursive individual planning'  <cite data-cite="6202365/UKUXJHCN"></cite> is:
 #    * A sequence of discretized Bellman equations, such that
 #      \begin{equation}
@@ -141,48 +140,6 @@
 #      holds given the policy $h_{t}$, that is optimal given $P_t$, $v_{t+1}$
 #      * That is, given a histogram describing the distribution in period $t$, $d \mu_{t}$, next period's histogram is determined by the transition matrix
 #    * Prices, distribution, and policies lead to market clearing
-
-# %% {"code_folding": []}
-# Setup stuff 
-from __future__ import print_function
-
-# This is a jupytext paired notebook that autogenerates a corresponding .py file
-# which can be executed from a terminal command line via "ipython [name].py"
-# But a terminal does not permit inline figures, so we need to test jupyter vs terminal
-# Google "how can I check if code is executed in the ipython notebook"
-
-def in_ipynb():
-    try:
-        if str(type(get_ipython())) == "<class 'ipykernel.zmqshell.ZMQInteractiveShell'>":
-            return True
-        else:
-            return False
-    except NameError:
-        return False
-
-    
-# The tools for navigating the filesystem
-import sys
-import os
-
-# Find pathname to this file:
-my_file_path = os.path.dirname(os.path.abspath("TwoAsset.ipynb"))
-
-# Relative directory for pickled code
-code_dir = os.path.join(my_file_path, "../Assets/Two") 
-
-sys.path.insert(0, code_dir)
-sys.path.insert(0, my_file_path)
-
-# %% {"code_folding": []}
-## Load precomputed Stationary Equilibrium (StE) object EX3SS_20
-
-import pickle
-os.chdir(code_dir) # Go to the directory with pickled code
-
-## EX3SS_20.p is the information in the stationary equilibrium (20: the number of illiquid and liquid weath grids )
-EX3SS=pickle.load(open("EX3SS_20.p", "rb"))
-
 
 # %% [markdown]
 # #### Compact notation
@@ -208,16 +165,16 @@ EX3SS=pickle.load(open("EX3SS_20.p", "rb"))
 #      \policy_t(s_{t}) = \arg \max\limits_{x \in \Gamma(s,P_t)} u(s,x) + \beta \mathop{\mathbb{E}_{t}} v_{t+1}(s_{t+1})
 #      \end{equation}
 #    * The solution is a function-valued difference equation:
-# \begin{equation}   
+# \begin{equation}
 #      \mathop{\mathbb{E}_{t}}F(X_t,X_{t+1},Y_t,Y_{t+1},\epsilon_{t+1}) = 0
-# \end{equation}    
+# \end{equation}
 #      where $\mathop{\mathbb{E}}$ is the expectation over aggregate states
 #    * It becomes real-valued when we replace the functions by their discretized counterparts
 #    * Standard techniques can solve the discretized version
 
 # %% [markdown]
 # #### So, is all solved?
-# The dimensionality of the system F is a big problem 
+# The dimensionality of the system F is a big problem
 #    * With high dimensional idiosyncratic states, discretized value functions and distributions become large objects
 #    * For example:
 #       * 4 income states $\times$ 100 illiquid capital states $\times$ 100 liquid capital states $\rightarrow$ $\geq$ 40,000 values in $F$
@@ -233,7 +190,7 @@ EX3SS=pickle.load(open("EX3SS_20.p", "rb"))
 #       * This lets us represent the functions with many fewer points
 #    * Fluctuations are represented as differences from this reference frame
 #    * Assume all coefficients of the DCT from the StE that are close to zero do not change when there is an aggregate shock (small things stay small)
-#    
+#
 # 2. Assume no changes in the rank correlation structure of $\mu$
 #    * $\Rightarrow d\mu $ can be represented by a Copula
 #    * Calculate the Copula, $\bar{C}$ of $\mu$ in the StE
@@ -251,12 +208,12 @@ EX3SS=pickle.load(open("EX3SS_20.p", "rb"))
 #    * Let $\bar{\Theta} = dct(\bar{v})$ be the coefficients obtained from the DCT of the value function in StE
 #    * Define an index set $\mathop{I}$ that contains the x percent largest (i.e. most important) elements from $\bar{\Theta}$
 #    * Let $\theta$ be a sparse vector with non-zero entries only for elements $i \in \mathop{I}$
-#    * Define 
+#    * Define
 #    \begin{equation}
 #     \tilde{\Theta}(\theta_t)=\left\{
 #       \begin{array}{@{}ll@{}}
 #          \bar{\Theta}(i)+\theta_t(i), & i \in \mathop{I} \\
-#          \bar{\Theta}(i), & \text{else}
+#               \bar{\Theta}(i), & \text{else}
 #       \end{array}\right.
 #    \end{equation}
 #    * This assumes that the basis functions with least contribution to representation of the function in levels, make no contribution at all to its changes over time
@@ -269,14 +226,14 @@ EX3SS=pickle.load(open("EX3SS_20.p", "rb"))
 #        * Remember that $\tilde{v}(0)=\bar{v}$ by construction
 #    * But it allows us to reduce the number of derivatives that need to be calculated from the outset.
 #        * We only calculate derivatives for those basis functions that make an important contribution to the representation of the function
-#    
+#
 # 3) The histogram is recovered as follows
 #    * $\mu_t$ is approximated as $\bar{C}(\bar{\mu_t}^1,...,\bar{\mu_t}^n)$, where $n$ is the dimensionality of the idiosyncratic states <!-- Question: Why is there no time subscript on $\bar{C}$?  I thought the copula was allowed to vary over time ... --> <!-- Question: is $\mu_{t}$ linearly interpolated between gridpoints? ... -->
-#       * $\mu_t^{i}$ are the marginal distributions <!-- Question: These are cumulatives, right?  They are not in the same units as $\mu$ --> 
+#       * $\mu_t^{i}$ are the marginal distributions <!-- Question: These are cumulatives, right?  They are not in the same units as $\mu$ -->
 #    * The StE distribution is obtained when $\mu = \bar{C}(\bar{\mu}^1,...,\bar{\mu}^n)$
 #    * Typically prices are only influenced through the marginal distributions
 #    * The approach ensures that changes in the mass of one state (say, wealth) are distributed in a sensible way across the other dimensions
-#       * Where "sensible" means "like in StE" <!-- Question: Right? --> 
+#       * Where "sensible" means "like in StE" <!-- Question: Right? -->
 #    * The implied distributions look "similar" to the StE one (different in (Reiter, 2009))
 #
 # 4) The large system above is now transformed into a much smaller system:
@@ -284,20 +241,20 @@ EX3SS=pickle.load(open("EX3SS_20.p", "rb"))
 #       F(\{d\mu_t^1,...,d\mu_t^n\}, S_t, \{d\mu_{t+1}^1,...,d\mu_{t+1}^n\}, S_{t+1}, \theta_t, P_t, \theta_{t+1}, P_{t+1})
 #       &= \begin{bmatrix}
 #            d\bar{C}(\bar{\mu}_t^1,...,\bar{\mu}_t^n) - d\bar{C}(\bar{\mu}_t^1,...,\bar{\mu}_t^n)\Pi_{\policy_t} \\
-#            dct\left[idct\left(\tilde{\Theta}(\theta_t) - (\bar{u}_{\policy_t} + \beta \Pi_{\policy_t}idct(\tilde{\Theta}(\theta_{t+1}))\right)\right] \\
-#            S_{t+1} - \Policy(S_t,d\mu_t) \\
-#            \Phi(\policy_t,d\mu_t,P_t,S_t) \\
-#            \end{bmatrix}
+#                 dct\left[idct\left(\tilde{\Theta}(\theta_t) - (\bar{u}_{\policy_t} + \beta \Pi_{\policy_t}idct(\tilde{\Theta}(\theta_{t+1}))\right)\right] \\
+#                 S_{t+1} - \Policy(S_t,d\mu_t) \\
+#                 \Phi(\policy_t,d\mu_t,P_t,S_t) \\
+#                 \end{bmatrix}
 #      \end{align}
-#      
+#
 
 # %% [markdown]
 # ### The two-asset HANK model
 #
-# We illustrate the algorithm in a two-asset HANK model described as below 
+# We illustrate the algorithm in a two-asset HANK model described as below
 #
 #
-# #### Households 
+# #### Households
 # - Maximizing discounted felicity
 #    - Consumption $c$ 
 #       - CRRA coefficent: $\xi$
@@ -345,45 +302,110 @@ EX3SS=pickle.load(open("EX3SS_20.p", "rb"))
 # - Optimal policy for adjusters and nonadjusters are $c^*_a$, $n^*_a$ $k^*_a$ and $\liquid^*_a$ and  $c^*_n$, $n^*_n$ and $\liquid^*_n$, respectively 
 #
 
-# %%
+# %% {"code_folding": []}
+# Setup stuff 
+
+
+# The tools for navigating the filesystem
+import sys
+import os
+import pickle
 import time
-from FluctuationsTwoAsset import FluctuationsTwoAsset, SGU_solver, plot_IRF
+import warnings
+from copy import copy
+# Ignore scary but unimportant system warnings while running the notebook
+warnings.filterwarnings('ignore')
+from IPython import get_ipython
 
-start_time = time.perf_counter() 
+# %% {"code_folding": [], "tags": []}
+# Code must be inside a main() block to be usable for multiprocessing from command line
+# Jupyter notebooks ignore the multiprocessing (so are slower)
+def main():
 
-## Choose an aggregate shock to perturb(one of three shocks: MP, TFP, Uncertainty)
+    # Find pathname to this file:
 
-# EX3SS['par']['aggrshock']           = 'MP'
-# EX3SS['par']['rhoS']    = 0.0      # Persistence of variance
-# EX3SS['par']['sigmaS']  = 0.001    # STD of variance shocks
-
-#EX3SS['par']['aggrshock']           = 'TFP'
-#EX3SS['par']['rhoS']    = 0.95
-#EX3SS['par']['sigmaS']  = 0.0075
+    # This is a jupytext paired notebook that autogenerates a corresponding .py file
+    # which can be executed from a terminal command line via "ipython [name].py"
+    # But a terminal does not permit inline figures, so we need to test jupyter vs terminal
+    # Google "how can I check if code is executed in the ipython notebook"
     
-EX3SS['par']['aggrshock'] = 'Uncertainty'
-EX3SS['par']['rhoS'] = 0.84    # Persistence of variance
-EX3SS['par']['sigmaS'] = 0.54    # STD of variance shocks
+    def in_ipynb():
+        try:
+            if str(type(get_ipython())) == "<class 'ipykernel.zmqshell.ZMQInteractiveShell'>":
+                return True
+            else:
+                return False
+        except NameError:
+            return False
+    
+    # Determine whether to make the figures inline (for spyder or jupyter)
+    # vs whatever is the automatic setting that will apply if run from the terminal
+    if in_ipynb():
+        # matplotlib inline generates a syntax error when run from the shell
+        # so do this instead
+        get_ipython().run_line_magic('matplotlib', 'inline') 
+    else:
+        from matplotlib.pyplot import ion
+        ion()
+        get_ipython().run_line_magic('matplotlib', 'auto') 
 
+    my_file_path = os.path.dirname(os.path.abspath("TwoAsset-HANK.py"))
+    
+    # Relative and absolute paths for pickled code
+    code_dir_rel = os.path.join(my_file_path, "../Assets/Two") 
+    code_dir = os.path.abspath(code_dir_rel)
+    
+    sys.path.insert(0, code_dir)
+    sys.path.insert(0, my_file_path)
+    
+    ## Load precomputed Stationary Equilibrium (StE) object EX3SS_20
+    
+    os.chdir(code_dir) # Go to the directory with pickled code
+    
+    ## EX3SS_20.p is the information in the stationary equilibrium 
+    ## (20: the number of illiquid and liquid weath gridpoints )
+    EX3SS=pickle.load(open("EX3SS_20.p", "rb"))
 
-## Choose an accuracy of approximation with DCT
-### Determines number of basis functions chosen -- enough to match this accuracy
-### EX3SS is precomputed steady-state pulled in above
-EX3SS['par']['accuracy'] = 0.99999 
+    from FluctuationsTwoAsset import FluctuationsTwoAsset, SGU_solver, plot_IRF
+    
+    start_time = time.perf_counter() 
+    
+    ## Choose one of three aggregate shocks to perturb
+    ## MP (monetary policy)
+    ## TFP (total factor productivity)
+    ## Uncertainty
+    
+    # EX3SS['par']['aggrshock']           = 'MP'
+    # EX3SS['par']['rhoS']    = 0.0      # Persistence of variance
+    # EX3SS['par']['sigmaS']  = 0.001    # STD of variance shocks
+    
+    # EX3SS['par']['aggrshock']           = 'TFP'
+    # EX3SS['par']['rhoS']    = 0.95
+    # EX3SS['par']['sigmaS']  = 0.0075
+        
+    EX3SS['par']['aggrshock'] = 'Uncertainty'
+    EX3SS['par']['rhoS'] = 0.84      # Persistence of variance
+    EX3SS['par']['sigmaS'] = 0.54    # STD of variance shocks
+    
+    ## Choose an accuracy of approximation with DCT
+    ### Determines number of basis functions chosen -- enough to match this accuracy
+    ### EX3SS is precomputed steady-state pulled in above
+    EX3SS['par']['accuracy'] = 0.99999 
+    
+    ## Implement state reduction and DCT
+    ### Do state reduction on steady state
+    
+    EX3SR = FluctuationsTwoAsset(**EX3SS)
+    SR = EX3SR.StateReduc()
+    
+    print('SGU_solver')
+    SGUresult = SGU_solver(SR['Xss'],SR['Yss'],SR['Gamma_state'],SR['indexMUdct'],SR['indexVKdct'],SR['par'],SR['mpar'],SR['grid'],SR['targets'],SR['Copula'],SR['P_H'],SR['aggrshock'])
+    print('plot_IRF')
+    plot_IRF(SR['mpar'],SR['par'],SGUresult['gx'],SGUresult['hx'],SR['joint_distr'],
+             SR['Gamma_state'],SR['grid'],SR['targets'],SR['Output'])
+    
+    end_time = time.perf_counter()
+    print('Elapsed time is ',  (end_time-start_time), ' seconds.')
 
-## Implement state reduction and DCT
-### Do state reduction on steady state
-
-EX3SR = FluctuationsTwoAsset(**EX3SS)
-SR = EX3SR.StateReduc()
-
-print('SGU_solver')
-SGUresult = SGU_solver(SR['Xss'],SR['Yss'],SR['Gamma_state'],SR['indexMUdct'],SR['indexVKdct'],SR['par'],SR['mpar'],SR['grid'],SR['targets'],SR['Copula'],SR['P_H'],SR['aggrshock'])
-print('plot_IRF')
-plot_IRF(SR['mpar'],SR['par'],SGUresult['gx'],SGUresult['hx'],SR['joint_distr'],
-         SR['Gamma_state'],SR['grid'],SR['targets'],SR['Output'])
-
-end_time = time.perf_counter()
-print('Elapsed time is ',  (end_time-start_time), ' seconds.')
-
-# %%
+if __name__ == "__main__":
+    main()

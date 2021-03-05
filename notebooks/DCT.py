@@ -35,10 +35,12 @@ def in_ipynb():
 # Determine whether to make the figures inline (for spyder or jupyter)
 # vs whatever is the automatic setting that will apply if run from the terminal
 if in_ipynb():
-    # # %matplotlib inline generates a syntax error when run from the shell
+    # # # matplotlib inline generates a syntax error when run from the shell
     # so do this instead
     get_ipython().run_line_magic('matplotlib', 'inline') 
 else:
+    from matplotlib.pyplot import ion
+    ion()
     get_ipython().run_line_magic('matplotlib', 'auto') 
 
 # %%

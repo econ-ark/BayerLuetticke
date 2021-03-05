@@ -2,17 +2,20 @@ This folder contains code that solves models from the paper of Bayer and Luetikk
 
 https://cepr.org/active/publications/discussion_papers/dp.php?dpno=13071#
 
-This folder contains preliminary work that has not yet been fully integrated into HARK.
-
 The paper solves three models, represented here in three places:
 
-A Krusell-Smith model with a single asset, [OneAsset-KS](https://github.com/econ-ark/HARK/blob/master/HARK/BayerLuetticke/OneAssetCode-KS), which can be run by executing _SteadyStateOneAssetIOUs.py_ then _FluctuationsOneAssetIOUs.py_..
+A Krusell-Smith model with a single asset:
+	* [OneAsset-KS]
+		* in Assets/One execute SteadyStateOneAssetIOUs.py then FluctuationsOneAssetIOUs.py
 
-A HANK model with a single asset, [OneAsset-HANK](https://github.com/econ-ark/HARK/blob/master/HARK/BayerLuetticke/OneAsset-HANK.ipynb), which can be launched on MyBinder using [this url]([https://mybinder.org/v2/gh/econ-ark/HARK/master?filepath=examples%2FBayerLuetticke%2FOneAsset-HANK.ipynb](https://mybinder.org/v2/gh/econ-ark/HARK/master?filepath=examples%2FBayerLuetticke%2FOneAsset-HANK.ipynb)
+A HANK model with a single asset:
+    * [OneAsset-HANK]
+	    * in Assets/One execute SteadyStateOneAssetIOUsBond.py then FluctuationsOneAssetIOUs.py
 
-A HANK model with a liquid and an illiquid asset, [TwoAsset-HANK](https://github.com/econ-ark/HARK/blob/master/HARK/BayerLuetticke/OneAsset-HANK.ipynb), which can be launched on MyBinder using [this url]([https://mybinder.org/v2/gh/econ-ark/HARK/master?filepath=examples%2FBayerLuetticke%2FTwoAsset.ipynb](https://mybinder.org/v2/gh/econ-ark/HARK/master?filepath=examples%2FBayerLuetticke%2FTwoAsset.ipynb)
-
-
+A HANK model with a liquid and an illiquid asset, [TwoAsset-HANK]
+    * [TwoAsset-HANK]
+	    * in Assets/Two execute SteadyStateTwoAsset.py then FluctuationsTwoAsset.py
+	
 Other content:
 
 1) BayerLuetticke_wrapper.py creates a wrapper to the one asset version of BayerLuettike's code. 
