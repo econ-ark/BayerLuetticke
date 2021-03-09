@@ -1,12 +1,13 @@
 # ---
 # jupyter:
 #   jupytext:
+#     cell_metadata_json: true
 #     formats: ipynb,py:percent
 #     text_representation:
 #       extension: .py
 #       format_name: percent
-#       format_version: '1.2'
-#       jupytext_version: 1.2.1
+#       format_version: '1.3'
+#       jupytext_version: 1.10.2
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -155,13 +156,13 @@ print(str(EX3SS['mpar']['nm'])+
 #    * A copula is a representation of the joint distribution expressed using a mapping between the uniform joint CDF and the marginal distributions of the variables
 #
 #    * The crucial assumption is that what aggregate shocks do is to squeeze or distort the steady state distribution, but leave the rank structure of the distribution the same
-#       * An example of when this might not hold is the following.  Suppose that in expansions, the people at the top of the distribution of illiquid assets (the top 1 percent, say) are also at the top 1 percent of liquid assets. But in recessions the bottom 99 percent get angry at the top 1 percent of illiquid asset holders and confiscate part of their liquid assets (the illiquid assets can't be confiscated quickly because they are illiquid). Now the people in the top 99 percent of illiquid assets might be in the _bottom_ 1 percent of liquid assets.
+#       * An example of when this might not hold is the following.  Suppose that in expansions, the people at the top of the distribution of illiquid assets (the top 1 percent, say) are also at the top 1 percent of liquid assets. But in recessions the bottom 99 percent get angry at the top 1 percent of illiquid asset holders and confiscate part of their liquid assets (the illiquid assets can't be confiscated quickly because they are illiquid). Now the people in the top 1 percent of illiquid assets might be in the _bottom_ 1 percent of liquid assets.
 #
 # - In this case we just need to represent how the mapping from ranks into levels of assets
 #
 # - This reduces the number of points for which we need to track transitions from $3600 = 30 \times 30 \times 4$ to $64 = 30+30+4$.  Or the total number of points we need to contemplate goes from $3600^2 \approx 13 $million to $64^2=4096$.
 
-# %% {"code_folding": [0]}
+# %% {"code_folding": []}
 # Get some specs about the copula, which is precomputed in the EX3SS object
 
 print('The copula consists of two parts: gridpoints and values at those gridpoints:'+ \
@@ -216,8 +217,7 @@ EX3SS['par']['rhoS'] = 0.84    # Persistence of variance
 EX3SS['par']['sigmaS'] = 0.54    # STD of variance shocks
 
 
-
-# %% {"code_folding": [0]}
+# %% {"code_folding": []}
 ## Choose an accuracy of approximation with DCT
 
 ### Determines number of basis functions chosen -- enough to match this accuracy
@@ -268,7 +268,7 @@ print('The total number of state variables is '+str(SR['State'].shape[0]) + '='+
 # We plot the functions for the each of the 4 values of the wage $h$.
 #
 
-# %% {"code_folding": [0]}
+# %% {"code_folding": []}
 ## Graphical illustration
 
 xi = EX3SS['par']['xi']
@@ -405,14 +405,16 @@ for idx in range(len(acc_lst)):
     ax.set_title(r'accuracy=${}$'.format(acc_lst[idx]))
     ax.legend(loc=0)
 
-# %% {"code_folding": [0]}
+# %% {"code_folding": []}
 ## Set the population density for plotting graphs
 
 print('Input: plot the graph for bottom x (0-1) of the distribution.')
-mass_pct = 1.00
+mass_pct = 0.95
 
 print('Input:choose the accuracy level for DCT, i.e. 0.99999 in the basline of Bayer and Luetticke')
 Accuracy_BS = 0.99999
+
+# %%
 
 # %% {"code_folding": [0]}
 # Restore the solution corresponding to the original BL accuracy
@@ -447,6 +449,10 @@ c_a_approx = DCTApprox(ca_StE,mut_rdc_idx)
 
 joint_distr =  EX3SS['joint_distr']
 
+
+# %%
+
+# %%
 
 # %% {"code_folding": [0]}
 ## Functions used to plot consumption functions at the trimmed grids
@@ -490,6 +496,10 @@ def TrimMesh2d(grids1,grids2,trim1_idx,trim2_idx,drop=True):
     return grids1_trimmesh,grids2_trimmesh
 
 
+# %%
+
+# %%
+
 # %% {"code_folding": [0]}
 ## Other configurations for plotting
 
@@ -500,6 +510,10 @@ fontsize_lg = 13
 ## lower bound for grid
 mmin = np.nanmin(mgrid)
 kmin = np.nanmin(kgrid)
+
+# %%
+
+# %%
 
 # %% {"code_folding": [0]}
 # For non-adjusters: 3D surface plots of consumption function at full grids and approximated by DCT
@@ -574,6 +588,10 @@ for hgrid_id in range(EX3SS['mpar']['nh']):
               loc=0)
 
 
+# %%
+
+# %%
+
 # %% {"code_folding": [0]}
 # For adjusters: 3D surface plots of consumption function at full grids and approximated by DCT
 
@@ -640,6 +658,10 @@ for hgrid_id in range(EX3SS['mpar']['nh']):
               ['Full-grid c','Approx c','Joint distribution'],
               loc=0)
 
+# %%
+
+# %%
+
 # %% {"code_folding": []}
 ## 3D scatter plots of the difference of full-grid c and approximated c for non-adjusters
 
@@ -705,6 +727,10 @@ for hgrid_id in range(EX3SS['mpar']['nh']):
     ax.legend([fake2Dline_pos,fake2Dline_neg,fake2Dline2],
               ['Positive approx errors','Negative approx errors','Joint distribution'],
               loc=0)
+
+# %%
+
+# %%
 
 # %% {"code_folding": [0]}
 # Difference of full-grid c and DCT compressed c for each level of accuracy
@@ -778,6 +804,10 @@ for idx in range(len(acc_lst)):
     ax.legend([fake2Dline_pos,fake2Dline_neg,fake2Dline2],
               ['+ approx errors','- approx errors','Joint distribution'],
               loc=0)
+
+# %%
+
+# %%
 
 # %% {"code_folding": [0]}
 # Difference of full-grid c and DCT compressed c for difference levels of accuracy
@@ -862,6 +892,8 @@ for idx in range(len(acc_lst)):
               loc=0)
 
 
+# %%
+
 # %% [markdown]
 # ##### Observation
 #
@@ -892,6 +924,8 @@ for hgrid_id in range(EX3SS['mpar']['nh']):
     ax.set_xlabel('k',size=fontsize_lg)
     for id in range(EX3SS['mpar']['nm']):
         ax.plot(kgrid,joint_distr[id,:,hgrid_id])
+
+# %%
 
 # %% {"code_folding": [0]}
 ## Plot joint distribution of k and m in 3d graph
@@ -945,6 +979,8 @@ for hgrid_id in range(EX3SS['mpar']['nh']):
     ax.legend([fake2Dline],
               ['joint distribution'],
               loc=0)
+
+# %%
 
 # %% [markdown]
 # Notice the CDFs in StE copula have 4 modes, corresponding to the number of $h$ gridpoints. Each of the four parts of the cdf is a joint-distribution of $m$ and $k$.  It can be presented in 3-dimensional graph as below.
@@ -1003,6 +1039,8 @@ for hgrid_id in range(EX3SS['mpar']['nh']):
     ax.legend([fake2Dline],
               ['Marginal cdf of the copula'],
               loc=0)
+
+# %%
 
 # %% [markdown]
 # ## More to do:

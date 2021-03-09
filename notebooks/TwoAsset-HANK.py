@@ -141,6 +141,8 @@
 #      * That is, given a histogram describing the distribution in period $t$, $d \mu_{t}$, next period's histogram is determined by the transition matrix
 #    * Prices, distribution, and policies lead to market clearing
 
+# %%
+
 # %% [markdown]
 # #### Compact notation
 #
@@ -154,7 +156,7 @@
 #       F(d\mu_t, S_t, d\mu_{t+1}, S_{t+1}, v_t, P_t, v_{t+1}, P_{t+1}, \epsilon_{t+1})
 #       &= \begin{bmatrix}
 #            d\mu_{t+1} - d\mu_t\Pi_{\policy_t} \\
-#            v_t - (\bar{u}_{\policy_t} + \beta \Pi_{\policy_t}v_{t+1}) \\
+#            v_t - (u_{\policy_t} + \beta \Pi_{\policy_t}v_{t+1}) \\
 #            S_{t+1} - \Policy(S_t,d\mu_t,\epsilon_{t+1}) \\
 #            \Phi(\policy_t,d\mu_t,P_t,S_t) \\
 #            \epsilon_{t+1}
@@ -268,7 +270,7 @@
 #       - Trading of illiquid assets is subject to a friction governed by $v$, the fraction of agents who can trade
 #       - If nontrading, receive dividend $r$ and depreciates by $\tau$
 # - Idiosyncratic labor productivity $h$: 
-#    - $h = 0$ for entreprener, only receive profits $\Pi$
+#    - $h = 0$ for entrepreneur, only receive profits $\Pi$
 #    - $h = 1$ for labor, evolves according to an autoregressive process, 
 #      - $\rho_h$ persistence parameter
 #      - $\epsilon^h$: idiosyncratic risk 

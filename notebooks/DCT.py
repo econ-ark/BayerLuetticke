@@ -58,7 +58,7 @@ from matplotlib import cm
 
 grids= np.linspace(0,100,100)   # this represents the grids on which consumption function is defined.i.e. m or k
 
-c =grids + 50*np.cos(grids*2*np.pi/40)  # this is an arbitrary example of consumption function 
+c =grids + 50*np.cos(grids*2*np.pi/40)  # this is an arbitrary example of a function to be approximated 
 c_dct = sf.dct(c,norm='ortho') # set norm =ortho is important 
 ind=np.argsort(abs(c_dct))[::-1]   # get indices of dct coefficients(absolute value) in descending order
 
@@ -84,15 +84,20 @@ for idx in range(len(lvl_lst)):
     plt.plot(c_approx,label=r'c approx at ${}$'.format(lvl_lst[idx]))
 plt.legend(loc=0)
 
+print("Looks like the figure is mislabeled - green is 0.5, orange is 0.9, blue is 0.99")
+
 # %% code_folding=[0]
 ## Blockwise DCT. For illustration but not used in BayerLuetticke. 
-## But it illustrates how doing dct in more finely devided blocks give a better approximation
+## But it illustrates how doing dct in more finely divided blocks give a better approximation
+### "regions" might be a better term than "blocks"
+### If you are worried that the dct functions may not be good globally but fine locally
+### then allow independent approximations of different regions
 
 size = c.shape
 c_dct = np.zeros(size)
 c_approx=np.zeros(size)
 
-fig = plt.figure(figsize=(5,5))
+fig = plt.figure(figsize=(10,10))
 fig.suptitle('DCT compressed c function with different number of basis funcs')
 nbs_lst = np.array([20,50])
 plt.plot(c,'r*',label='c at full grids')
