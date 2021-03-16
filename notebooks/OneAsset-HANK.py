@@ -21,7 +21,7 @@
 #
 # This notebook solves a New Keynesian model in which there is only a single liquid asset.  This is the second model described in [Bayer and Luetticke (2019)](https://cepr.org/active/publications/discussion_papers/dp.php?dpno=13071)
 
-# %% {"code_folding": []}
+# %% {"code_folding": [], "tags": [], "jupyter": {"source_hidden": true}}
 # Setup stuff 
 
 # This is a jupytext paired notebook that autogenerates a corresponding .py file
@@ -60,7 +60,7 @@ from copy import copy
 # Ignore scary but unimportant system warnings while running the notebook
 warnings.filterwarnings('ignore')
 
-# %% {"code_folding": [], "tags": []}
+# %% {"code_folding": [], "tags": [], "jupyter": {"source_hidden": true}}
 # Code must be inside a main() block to be usable for multiprocessing from command line
 # Jupyter notebooks ignore the multiprocessing (so are slower)
 def main():

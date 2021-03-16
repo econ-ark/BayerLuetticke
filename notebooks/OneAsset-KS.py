@@ -21,7 +21,7 @@
 #
 # This notebook solves a New Keynesian model in which there is only a single liquid asset.  This is the second model described in [Bayer and Luetticke (2019)](https://cepr.org/active/publications/discussion_papers/dp.php?dpno=13071)
 
-# %% {"code_folding": []}
+# %% {"code_folding": [], "jupyter": {"source_hidden": true}, "tags": []}
 # Setup stuff
 
 # This is a jupytext paired notebook that autogenerates a corresponding .py file
