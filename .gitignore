@@ -688,5 +688,5 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/latex,emacs,macos,windows,python,jupyternotebooks
 
-.idea # pycharm
-.ipynb_checkpoints # 
+.idea/ # pycharm
+.ipynb_checkpoints/ # 
