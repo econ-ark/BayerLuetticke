@@ -7,9 +7,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.10.2
+#       jupytext_version: 1.13.7
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -81,35 +81,35 @@
 #       * Representing the nodes of the discretization in a set of vectors
 #       * Such vectors will be represented by an overbar
 #       * For example, the vectors $\bar{s}_{it}$ and $\bar{c}_{it}$ define a set of points on the policy function (the consumption function)
-#    * The optimal policy $\newcommand{\policy}{c}\newcommand{\Policy}{C}\policy(s_{it};P(\mu))$ induces flow utility $u_{\policy}$ whose discretization is a vector $\bar{u}_{\bar{\policy}}$
-#    * Idiosyncratic dynamics are captured by a transition probability matrix $\Pi_{\bar{\policy}}$
+#    * The optimal policy ${c}(s_{it};P(\mu))$ induces flow utility $u_{{c}}$ whose discretization is a vector $\bar{u}_{\bar{{c}}}$
+#    * Idiosyncratic dynamics are captured by a transition probability matrix $\Pi_{\bar{{c}}}$
 #        * $\Pi$ is like an expectations operator
 #            * Given the consumer's state in $t$ it measures the probability of being in any other state in period $t+1$
-#        * It depends on the vectorization of the policy function $\bar{\policy}$
+#        * It depends on the vectorization of the policy function $\bar{{c}}$
 #    * $P$ is constant because in StE aggregate prices are constant
 #        * e.g., in the KS problem, $P$ would contain the (constant) wage and interest rates
 #    * In StE, the discretized Bellman equation that if $\bar{v}$ measures value at the discretized nodes,
 #      \begin{equation}
-#         \bar{v} = \bar{u} + \beta \Pi_{\bar{\policy}}\bar{v}
+#         \bar{v} = \bar{u} + \beta \Pi_{\bar{{c}}}\bar{v}
 #       \end{equation}
 #      holds for the optimal policy
 #    * For the distribution $\mu$ of consumers across states, which (by the definition of steady state) is constant:
 # \begin{eqnarray}
-#         \bar{\mu} & = & \bar{\mu} \Pi_{\bar{\policy}} \\
-#              d\bar{\mu} & = & d\bar{\mu} \Pi_{\bar{\policy}}
+#         \bar{\mu} & = & \bar{\mu} \Pi_{\bar{{c}}} \\
+#              d\bar{\mu} & = & d\bar{\mu} \Pi_{\bar{{c}}}
 # \end{eqnarray}<!--     where we differentiate in the second line because we will be representing the distribution as a histogram, which counts the _extra_ population obtained by moving up --> <!-- Is this right?  $\mu$ vs $d \mu$ is a bit confusing.  The d is wrt the state, not time, right? -->
 #
 # We will define an approximate equilibrium in which:
-#    * $\bar{\policy}$ is the vector that defines a linear interpolating policy function $\policy$ at the state nodes
+#    * $\bar{{c}}$ is the vector that defines a linear interpolating policy function ${c}$ at the state nodes
 #        * given $P$ and $v$
 #        * $v$ is a linear interpolation of $\bar{v}$
 #    * $\bar{v}$ and $d\bar{\mu}$ solve the approximated Bellman equation
 #        * subject to the steady-state constraint
-#    * Markets clear ($\exists$ joint requirement on $\bar{\policy}$, $\mu$, and $P$; denoted as $\Phi(\bar{\policy}, \mu, P) = 0$)  <!-- Question: Why is this not $\bar{\mu}$ -->
+#    * Markets clear ($\exists$ joint requirement on $\bar{{c}}$, $\mu$, and $P$; denoted as $\Phi(\bar{{c}}, \mu, P) = 0$)  <!-- Question: Why is this not $\bar{\mu}$ -->
 #
 # This can be solved by:
 #    1. Given $P$,
-#        1. Finding $d\bar{\mu}$ as the unit-eigenvalue of $\Pi_{\bar{\policy}}$
+#        1. Finding $d\bar{\mu}$ as the unit-eigenvalue of $\Pi_{\bar{{c}}}$
 #        2. Using standard solution techniques to solve the micro decision problem
 #           * Given, e.g., that the aggregate wage and interest rate are constant
 #    2. Using a root-finder to solve for $P$
@@ -130,20 +130,18 @@
 # A 'sequential equilibrium with recursive individual planning'  <cite data-cite="6202365/UKUXJHCN"></cite> is:
 #    * A sequence of discretized Bellman equations, such that
 #      \begin{equation}
-#         v_t = \bar{u}_{P_t} + \beta \Pi_{\policy_t} v_{t+1}
+#         v_t = \bar{u}_{P_t} + \beta \Pi_{{c}_t} v_{t+1}
 #      \end{equation}
-#      holds for policy $\policy_t$ which optimizes with respect to $v_{t+1}$ and $P_t$
+#      holds for policy ${c}_t$ which optimizes with respect to $v_{t+1}$ and $P_t$
 #    * and a sequence of "histograms" $d \mu$ (discretized distributions), such that
 #      \begin{equation}
-#         d\mu_{t+1} = d\mu_t \Pi_{\policy_t}
+#         d\mu_{t+1} = d\mu_t \Pi_{{c}_t}
 #      \end{equation}
 #      holds given the policy $h_{t}$, that is optimal given $P_t$, $v_{t+1}$
 #      * That is, given a histogram describing the distribution in period $t$, $d \mu_{t}$, next period's histogram is determined by the transition matrix
 #    * Prices, distribution, and policies lead to market clearing
 
-# %%
-
-# %% [markdown]
+# %% [markdown] {"jp-MarkdownHeadingCollapsed": true, "tags": []}
 # #### Compact notation
 #
 # It will be convenient to rewrite the problem using a compact notation proposed by Schmidt-Grohe and Uribe (2004)
@@ -155,16 +153,16 @@
 #      \begin{align}
 #       F(d\mu_t, S_t, d\mu_{t+1}, S_{t+1}, v_t, P_t, v_{t+1}, P_{t+1}, \epsilon_{t+1})
 #       &= \begin{bmatrix}
-#            d\mu_{t+1} - d\mu_t\Pi_{\policy_t} \\
-#            v_t - (u_{\policy_t} + \beta \Pi_{\policy_t}v_{t+1}) \\
-#            S_{t+1} - \Policy(S_t,d\mu_t,\epsilon_{t+1}) \\
-#            \Phi(\policy_t,d\mu_t,P_t,S_t) \\
+#            d\mu_{t+1} - d\mu_t\Pi_{{c}_t} \\
+#            v_t - (u_{{c}_t} + \beta \Pi_{{c}_t}v_{t+1}) \\
+#            S_{t+1} - {c}(S_t,d\mu_t,\epsilon_{t+1}) \\
+#            \Phi({c}_t,d\mu_t,P_t,S_t) \\
 #            \epsilon_{t+1}
 #            \end{bmatrix}
 #      \end{align}
 #      s.t. <!-- Q: Why are S_{t+1} and \epsilon_{t+1} not arguments of v_{t+1} below? -->
 #      \begin{equation}
-#      \policy_t(s_{t}) = \arg \max\limits_{x \in \Gamma(s,P_t)} u(s,x) + \beta \mathop{\mathbb{E}_{t}} v_{t+1}(s_{t+1})
+#      {c}_t(s_{t}) = \arg \max\limits_{x \in \Gamma(s,P_t)} u(s,x) + \beta \mathop{\mathbb{E}_{t}} v_{t+1}(s_{t+1})
 #      \end{equation}
 #    * The solution is a function-valued difference equation:
 # \begin{equation}
@@ -241,11 +239,11 @@
 # 4) The large system above is now transformed into a much smaller system:
 #      \begin{align}
 #       F(\{d\mu_t^1,...,d\mu_t^n\}, S_t, \{d\mu_{t+1}^1,...,d\mu_{t+1}^n\}, S_{t+1}, \theta_t, P_t, \theta_{t+1}, P_{t+1})
-#       &= \begin{bmatrix}
-#            d\bar{C}(\bar{\mu}_t^1,...,\bar{\mu}_t^n) - d\bar{C}(\bar{\mu}_t^1,...,\bar{\mu}_t^n)\Pi_{\policy_t} \\
-#                 dct\left[idct\left(\tilde{\Theta}(\theta_t) - (\bar{u}_{\policy_t} + \beta \Pi_{\policy_t}idct(\tilde{\Theta}(\theta_{t+1}))\right)\right] \\
-#                 S_{t+1} - \Policy(S_t,d\mu_t) \\
-#                 \Phi(\policy_t,d\mu_t,P_t,S_t) \\
+#       = \\ \begin{bmatrix}
+#            d\bar{C}(\bar{\mu}_t^1,...,\bar{\mu}_t^n) - d\bar{C}(\bar{\mu}_t^1,...,\bar{\mu}_t^n)\Pi_{{c}_t} \\
+#                 dct\left[idct\left(\tilde{\Theta}(\theta_t) - (\bar{u}_{{c}_t} + \beta \Pi_{{c}_t}idct(\tilde{\Theta}(\theta_{t+1}))\right)\right] \\
+#                 S_{t+1} - {c}(S_t,d\mu_t) \\
+#                 \Phi({c}_t,d\mu_t,P_t,S_t) \\
 #                 \end{bmatrix}
 #      \end{align}
 #
@@ -299,9 +297,9 @@
 #
 # #### Taking stock
 #
-# - Individual state variables: $\newcommand{\liquid}{m}\liquid$, $k$ and $h$, the joint distribution of individual states $\Theta$
-# - Individual control variables: $c$, $n$, $\liquid'$, $k'$ 
-# - Optimal policy for adjusters and nonadjusters are $c^*_a$, $n^*_a$ $k^*_a$ and $\liquid^*_a$ and  $c^*_n$, $n^*_n$ and $\liquid^*_n$, respectively 
+# - Individual state variables: $\newcommand{\liquid}{m}{m}$, $k$ and $h$, the joint distribution of individual states $\Theta$
+# - Individual control variables: $c$, $n$, ${m}'$, $k'$ 
+# - Optimal policy for adjusters and nonadjusters are $c^*_a$, $n^*_a$ $k^*_a$ and ${m}^*_a$ and  $c^*_n$, $n^*_n$ and ${m}^*_n$, respectively 
 #
 
 # %% {"code_folding": []}
@@ -411,3 +409,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# %% {"jupyter": {"outputs_hidden": false}, "pycharm": {"name": "#%%\n"}}
