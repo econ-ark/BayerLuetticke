@@ -690,3 +690,5 @@ $RECYCLE.BIN/
 
 .idea/ # pycharm
 .ipynb_checkpoints/ # 
+
+condaenv/
