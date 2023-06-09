@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "This is a replication of 'Solving heterogeneous agent models in discrete time with many idiosyncratic states by perturbation methods', and is managed by the `econ-ark` team."
+authors:
+  - family-names: "Lee"
+    given-names: "Seungcheol"
+  - family-names: "Park"
+    given-names:  "Seungmoon"
+title: "Solving heterogeneous agent models in discrete time with many idiosyncratic states by perturbation methods"
+abstract: "Code that solves models from the paper of Bayer and Luetikke, \"Solving heterogeneous agent models in discrete time with many idiosyncratic states by perturbation methods\"."
+date-released: 2021-02-02
+
+references:
+  - type: article
+    authors:
+      - family-names: "Bayer"
+        given-names: "Christian"
+      - family-names: "Luetticke"
+        given-names: "Ralph"
+    title: "Solving heterogeneous agent models in discrete time with many idiosyncratic states by perturbation methods" # required
+    date-released: 2018-07-14
+
+repository-code: https://github.com/econ-ark/BayerLuetticke
+
